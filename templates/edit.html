@@ -1,0 +1,18 @@
+<!-- templates/edit.html -->
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Editează măsurare</title>
+</head>
+<body>
+    <h1>Editează măsurarea #{{ measurement[0] }}</h1>
+    <form method="post">
+        Temperatură (°C): <input type="number" name="temperature" step="0.1" value="{{ measurement[2] }}" required><br>
+        Viteză vânt (m/s): <input type="number" name="wind_speed" step="0.1" value="{{ measurement[3] }}" required><br>
+        Putere generată (kW): <input type="number" name="power_output" step="0.1" value="{{ measurement[4] }}" required><br>
+        <button type="submit">Salvează</button>
+    </form>
+    <a href="/">⏪ Înapoi</a>
+</body>
+</html>

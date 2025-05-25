@@ -1,0 +1,19 @@
+<!-- templates/add.html -->
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Adaugă Măsurare</title>
+</head>
+<body>
+    <h1>Adaugă o nouă măsurare</h1>
+    <form method="post">
+        Oraș: <input type="text" name="city" required><br>
+        Temperatură (°C): <input type="number" name="temperature" step="0.1" required><br>
+        Viteză vânt (m/s): <input type="number" name="wind_speed" step="0.1" required><br>
+        Putere generată (kW): <input type="number" name="power_output" step="0.1" required><br>
+        <button type="submit">Adaugă</button>
+    </form>
+    <a href="/">⏪ Înapoi</a>
+</body>
+</html>

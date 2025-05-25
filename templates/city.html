@@ -1,0 +1,42 @@
+<!-- templates/city.html -->
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ city }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Informații despre {{ city }}</h1> 
+
+    {% if weather %}
+        <h2>Vremea</h2>
+        <p>Temperatură: {{ weather['main']['temp'] }}°C</p>
+        <p>Vânt: {{ weather['wind']['speed'] }} m/s</p>
+    {% else %}
+        <p>Nu s-au găsit date meteo.</p>
+    {% endif %}
+
+    {% if image_url %}
+        <h2>Imagine reprezentativă</h2>
+        <img src="{{ image_url }}" alt="Imagine oraș" style="width:50%;border-radius: 12px;">
+    {% endif %}
+
+    <h2>Măsurători înregistrate</h2>
+    {% if measurements %}
+        <ul>
+            {% for m in measurements %}
+                <li>
+                    ID: {{ m[0] }} | Temperatură: {{ m[2] }}°C | Vânt: {{ m[3] }} m/s | Putere: {{ m[4] }} kW
+                    [<a href="/edit/{{ m[0] }}">Editează</a>]
+                    [<a href="/delete/{{ m[0] }}">Șterge</a>]
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nu există măsurători pentru acest oraș.</p>
+    {% endif %}
+
+    <br><a href="/">⏪ Înapoi</a>
+</body>
+</html>

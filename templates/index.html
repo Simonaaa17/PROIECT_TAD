@@ -1,0 +1,59 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistem Meteo & Energie Eoliană</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Consultați informațiile pentru un oraș</h1>
+
+        <form action="/city" method="post" class="search-form">
+            <input type="text" name="city" placeholder="Ex: Constanța" required>
+            <button type="submit">🔍 Caută</button>
+        </form>
+
+        <form action="/delete_all" method="post" onsubmit="return confirm('Sigur vrei să ștergi toate măsurările?');">
+            <button type="submit" class="delete-all">🗑️ Șterge toate măsurările</button>
+        </form>
+
+        <hr>
+
+        <a href="{{ url_for('api.list_measurements') }}">🔗 API JSON</a> |
+        <a href="/add">➕ Adaugă măsurare manual</a>
+
+        <h2>Măsurători existente</h2>
+        {% if measurements %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Oraș</th>
+                        <th>Temperatură (°C)</th>
+                        <th>Viteză vânt (m/s)</th>
+                        <th>Putere generată (kW)</th>
+                        <th>Acțiuni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in measurements %}
+                    <tr>
+                        <td>{{ m.city }}</td>
+                        <td>{{ m.temperature }}</td>
+                        <td>{{ m.wind_speed }}</td>
+                        <td>{{ m.power_output }}</td>
+                        <td>
+                            <a href="/edit/{{ m.id }}">✏️ Editare</a> |
+                            <a href="/delete/{{ m.id }}" onclick="return confirm('Ștergi această măsurare?');">❌ Șterge</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Nu există măsurători înregistrate.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
