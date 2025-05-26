@@ -1,19 +1,89 @@
-<!-- templates/add.html -->
 <!DOCTYPE html>
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
     <title>Adaugă Măsurare</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;    
+            height: 100vh;        
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        form {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 15px 10px;
+            align-items: center;
+        }
+        form h1 {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        label {
+            text-align: right;
+            padding-right: 10px;
+            font-weight: bold;
+        }
+        input {
+            padding: 5px 8px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            grid-column: 1 / -1;
+            padding: 10px;
+            font-size: 1em;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            grid-column: 1 / -1;
+            text-align: center;
+            display: block;
+            margin-top: 10px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Adaugă o nouă măsurare</h1>
     <form method="post">
-        Oraș: <input type="text" name="city" required><br>
-        Temperatură (°C): <input type="number" name="temperature" step="0.1" required><br>
-        Viteză vânt (m/s): <input type="number" name="wind_speed" step="0.1" required><br>
-        Putere generată (kW): <input type="number" name="power_output" step="0.1" required><br>
+        <h1>Adaugă o nouă măsurare</h1>
+
+        <label for="city">Oraș:</label>
+        <input id="city" type="text" name="city" required>
+
+        <label for="temperature">Temperatură (°C):</label>
+        <input id="temperature" type="number" name="temperature" step="0.1" required>
+
+        <label for="wind_speed">Viteză vânt (m/s):</label>
+        <input id="wind_speed" type="number" name="wind_speed" step="0.1" required>
+
+        <label for="power_output">Putere generată (kW):</label>
+        <input id="power_output" type="number" name="power_output" step="0.1" required>
+
         <button type="submit">Adaugă</button>
+
+        <a href="/">⏪ Înapoi</a>
     </form>
-    <a href="/">⏪ Înapoi</a>
 </body>
 </html>

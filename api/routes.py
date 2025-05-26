@@ -37,6 +37,6 @@ def delete_measurement_by_id(id):
 
 @api_bp.route('/measurements', methods=['DELETE'])
 def delete_all_measurements():
-    delete_all()  # funcție din database.py
+    delete_all() 
     return jsonify({'message': 'All measurements deleted'}), 200
 

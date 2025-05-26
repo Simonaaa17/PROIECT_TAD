@@ -6,20 +6,23 @@ def init_db():
         db.create_all()
 
 def get_all_measurements():
-    measurements = Measurement.query.all()
-    return [m.to_dict() for m in measurements]
+    return Measurement.query.all()
 
 def get_measurements_by_city(city):
-    measurements = Measurement.query.filter_by(city=city).all()
-    return [m.to_dict() for m in measurements]
+    return Measurement.query.filter_by(city=city).all()
 
 def get_measurement(id):
     measurement = Measurement.query.get(id)
-    return measurement.to_dict() if measurement else None
+    return measurement 
 
 def add_measurement(city, temperature, wind_speed, power_output):
-    m = Measurement(city=city, temperature=temperature, wind_speed=wind_speed, power_output=power_output)
-    db.session.add(m)
+    measurement = Measurement(
+        city=city,
+        temperature=temperature,
+        wind_speed=wind_speed,
+        power_output=power_output
+    )
+    db.session.add(measurement)
     db.session.commit()
 
 def update_measurement(id, temperature, wind_speed, power_output):

@@ -1,6 +1,6 @@
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #f5f5f5;
+    background-color: #d0e8d0; 
     color: #333;
     padding: 30px;
 }
@@ -8,14 +8,15 @@ body {
 .container {
     max-width: 800px;
     margin: auto;
-    background: white;
+    background: #ffffff;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border: 1px solid #a9d6a9;
 }
 
 h1, h2 {
-    color: #222;
+    color: #1b5e20;
     text-align: center;
 }
 
@@ -29,26 +30,33 @@ form {
     font-size: 16px;
     width: 200px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #81c784;
+    background-color: #f4fff4;
 }
 
 .search-form button,
 .delete-all {
     padding: 10px 20px;
     margin-left: 10px;
-    background-color: #337ab7;
+    background-color: #2e7d32;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-form button:hover,
+.delete-all:hover {
+    background-color: #145a14; 
 }
 
 .delete-all {
-    background-color: #d9534f;
+    background-color: #c62828;
 }
 
 a {
-    color: #6c63ff;
+    color: #1b5e20;
     text-decoration: none;
     font-weight: bold;
 }
@@ -70,9 +78,9 @@ th, td {
 }
 
 th {
-    background-color: #eee;
+    background-color: #e8f5e9;
 }
 
 tr:hover {
-    background-color: #f9f9f9;
+    background-color: #edf7ed;
 }

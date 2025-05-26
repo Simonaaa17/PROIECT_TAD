@@ -1,5 +1,4 @@
-# api/models.py
-
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -12,6 +11,7 @@ class Measurement(db.Model):
     temperature = db.Column(db.Float)
     wind_speed = db.Column(db.Float)
     power_output = db.Column(db.Float)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow) 
 
     def to_dict(self):
         return {
@@ -19,5 +19,6 @@ class Measurement(db.Model):
             'city': self.city,
             'temperature': self.temperature,
             'wind_speed': self.wind_speed,
-            'power_output': self.power_output
+            'power_output': self.power_output,
+            'timestamp': self.timestamp.isoformat() if self.timestamp else None
         }
