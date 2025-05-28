@@ -24,6 +24,30 @@ OPENWEATHER_API_KEY = "0d4670297bbe630f2b203299b369cd66"
 UNSPLASH_API_KEY = "CTfT2VmYo9OMOvH2_L3zHnWDG4nWY8-H5fnDMNO-6yw"
 FOURSQUARE_API_KEY = "fsq30zjP2W670XWsjbYYn+xmjKtPYricBp+3JVSYmgy/xv8="
 
+def get_air_quality(city):
+    geocode_url = f"http://api.openweathermap.org/geo/1.0/direct?q={city}&limit=1&appid={OPENWEATHER_API_KEY}"
+    try:
+        geocode_resp = requests.get(geocode_url)
+        geocode_resp.raise_for_status()
+        geo_data = geocode_resp.json()
+        if not geo_data:
+            print("Nu s-au găsit coordonate pentru oraș.")
+            return None
+        lat = geo_data[0]['lat']
+        lon = geo_data[0]['lon']
+    except requests.RequestException as e:
+        print(f"Eroare geocodare: {e}")
+        return None
+
+    air_url = f"http://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid={OPENWEATHER_API_KEY}"
+    try:
+        air_resp = requests.get(air_url)
+        air_resp.raise_for_status()
+        air_data = air_resp.json()
+        return air_data
+    except requests.RequestException as e:
+        print(f"Eroare API calitate aer: {e}")
+        return None
 
 def convert_utc_to_local(utc_dt):
     tz_local = pytz.timezone('Europe/Bucharest')
@@ -69,7 +93,6 @@ def fetch_unsplash_images(city, num_images=4):
         print(f"Eroare Unsplash: {e}")
         return []
 
-# --- Rute principale ---
 
 @app.route('/')
 def index():
@@ -97,13 +120,15 @@ def city():
 
     measurements = get_measurements_by_city(city)
 
+    air_quality = get_air_quality(city)
+
     for m in measurements:
         if isinstance(m, dict) and isinstance(m.get('timestamp'), str):
             try:
                 dt_utc = datetime.strptime(m['timestamp'], '%Y-%m-%d %H:%M:%S')
                 m['timestamp'] = convert_utc_to_local(dt_utc)
             except Exception as e:
-                print(f"Eroare la parsarea timestamp-ului: {e}")
+                print(f"Eroare la convertirea timestamp-ului: {e}")
                 m['timestamp'] = None
         elif hasattr(m, 'timestamp') and m.timestamp:
             m.timestamp = convert_utc_to_local(m.timestamp)
@@ -114,7 +139,8 @@ def city():
         weather=weather,
         image_urls=image_urls,
         measurements=measurements,
-        restaurants=restaurants
+        restaurants=restaurants,
+        air_quality=air_quality
     )
 
 @app.route('/add', methods=['GET', 'POST'])
